@@ -15,7 +15,11 @@ export class EmployeeFormController extends FormController {
 
     getStaticActionMenuItems() {
         const menuItems = super.getStaticActionMenuItems();
-        menuItems.archive.callback = this.archiveEmployee.bind(this, this.model.root.resId);
+        if (menuItems.archive) {
+            menuItems.archive.callback = this.archiveEmployee.bind(this, this.model.root.resId);
+        } else {
+            console.warn("menuItems.archive is undefined or not an object. Skipping callback assignment.");
+        }
         return menuItems;
     }
 }
